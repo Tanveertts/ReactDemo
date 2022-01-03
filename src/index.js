@@ -1,13 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-//import App from './App';
 import reportWebVitals from './reportWebVitals';
-import Counter from './hooks/Counter';
 import 'bootstrap/dist/css/bootstrap.css';
+import 'font-awesome/css/font-awesome.css';
+import Counters from './components/Counters';
+import App from './App';
 ReactDOM.render(
   <React.StrictMode>
-    <Counter />
+    <App/>
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -1,19 +1,20 @@
-import React, { Component } from 'react';
-import {getGenres} from '../services/fakeGenreService';
+import React from 'react';
 
 class List extends React.Component {
-    state = {
-        genre : getGenres()
-    }
     render() { 
+        const {items, textProperty, valueProperty, selectedItem, onClick} = this.props;
         return (
         <ul className="list-group">
-            <li style={{cursor: 'pointer'}}  className="list-group-item">All Movies</li>
-            {this.state.genre.map(genres => 
-            <li style={{cursor: 'pointer'}} className="list-group-item" onClick={() => this.props.onClick(genres)}>{genres.name}</li>)}
+            {items.map(genres => 
+            <li key={genres[valueProperty]} style={{cursor: 'pointer'}} className={selectedItem === genres ? "list-group-item active" : "list-group-item"} onClick={() => onClick(genres)}>{genres[textProperty]}</li>)}
         </ul>
         )
     }
+};
+
+List.defaultProps = {
+    valueProperty: "_id",
+    textProperty: "name"
 }
  
 export default List;

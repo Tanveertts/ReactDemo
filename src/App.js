@@ -1,11 +1,10 @@
 //import logo from './logo.svg';
 import React from 'react';
-import { Component, Fragment } from 'react/cjs/react.production.min';
+//import { Component, Fragment } from 'react/cjs/react.production.min';
 import './App.css';
 //import Counters from './components/Counters';
 import Movies from './components/Movies';
-import List from './components/List';
-import { indexOf } from 'lodash';
+//import { indexOf } from 'lodash';
 //import Navbar from './components/Navbar';
 
 class App extends React.Component {
@@ -16,7 +15,7 @@ class App extends React.Component {
         {id:3, value:0},
         {id:4, value:0}
     ],
-    genreIndex : 1
+    genreIndex : 1,
 }
 
 handleIncrement = (counterlistItem) =>{
@@ -50,25 +49,16 @@ handleReset = () =>{
     this.setState({counters});
     console.log(counters);
 }
-handleGenre = (genreItem) => {
-  const genreIndex = indexOf(genreItem);
-  console.log(genreIndex);
-  //this.setState({genreIndex});
-}
 render(){
   return (
     <React.Fragment>
     {/* <Navbar totalCounters={this.state.counter.filter(c => c.value > 0).length}/> */}
     <main className='container'>
       {/* <Counters onDecrement={this.handleDecrement} counter={this.state.counter} onReset={this.handleReset} onDelete={this.handleDelete} onIncrement={this.handleIncrement}/> */}
-      <div className='row'>
-        <div className='col-sm-3'>
-      <List onClick={this.handleGenre}/>
-      </div>
-      <div className='col-sm-9'>
+     
       <Movies/>
-      </div>
-      </div>
+     
+     
     </main>
     </React.Fragment>
   );

@@ -1,9 +1,15 @@
 //import logo from './logo.svg';
 import React from 'react';
+import { Redirect, Route, Switch } from 'react-router-dom';
 //import { Component, Fragment } from 'react/cjs/react.production.min';
 import './App.css';
 //import Counters from './components/Counters';
 import Movies from './components/Movies';
+import Customers from './components/customers';
+import NotFound from './components/notFound';
+import Rentals from './components/rentals';
+import Navbar from './components/navbar';
+import MovieForm from './components/movieForm';
 //import { indexOf } from 'lodash';
 //import Navbar from './components/Navbar';
 
@@ -53,12 +59,20 @@ render(){
   return (
     <React.Fragment>
     {/* <Navbar totalCounters={this.state.counter.filter(c => c.value > 0).length}/> */}
+    <Navbar/>
     <main className='container'>
       {/* <Counters onDecrement={this.handleDecrement} counter={this.state.counter} onReset={this.handleReset} onDelete={this.handleDelete} onIncrement={this.handleIncrement}/> */}
      
-      <Movies/>
-     
-     
+      {/* <Movies/> */}
+     <Switch>
+       <Route path="/Movies/:id" component={MovieForm}></Route>
+     <Route path="/Movies" component={Movies}></Route>
+     <Route path="/customers" component={Customers}></Route>
+     <Route path="/rentals" component={Rentals}></Route>
+     <Route path="/notFound" component={NotFound}></Route>
+     <Redirect from="/" exact to="/Movies"/>
+     <Redirect to="/notFound"/>
+     </Switch>
     </main>
     </React.Fragment>
   );

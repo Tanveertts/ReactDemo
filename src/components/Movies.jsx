@@ -25,10 +25,16 @@ class Movies extends React.Component {
         console.log(moviesItems);
     };
     handleLIke(moviesItems){
-        const movies = {...this.state.movies};
-        const index = movies.indexOf(moviesItems);
-        movies[index].liked = !movies[index].liked;
-        this.setState({movies});
+        // const movies = {...this.state.movies};
+        // const index = movies.indexOf(moviesItems);
+        // movies[index] = { ...movies[index] };
+        // movies[index].liked = !movies[index].liked;
+        // this.setState({movies});
+        const movies = [...this.state.movies];
+    const index = movies.indexOf(moviesItems);
+    movies[index] = { ...movies[index] };
+    movies[index].liked = !movies[index].liked;
+    this.setState({ movies });
         console.log(moviesItems);
     };
     handlePageChange = (page) =>{
@@ -43,14 +49,20 @@ class Movies extends React.Component {
         this.setState({sortColoumn});
         //console.log(path);
     }
-    render() { 
-        const {length: count} = this.state.movies;
+    getPageData(){
         const { pageSize, currentPage, selectedGenre, sortColoumn, movies:allMovies} = this.state;
-        if(count === 0)
-        return <p>There are no movies in database</p>;
         const filterd = selectedGenre && selectedGenre._id ? allMovies.filter(m => m.genre._id === selectedGenre._id) : allMovies;
         const sorted = _.orderBy(filterd, sortColoumn.path, sortColoumn.order);
         const movies = paginate(sorted, currentPage, pageSize);
+        return {totalCount: filterd.length, data: movies}
+    }
+    render() { 
+        const {length: count} = this.state.movies;
+        const { pageSize, currentPage, sortColoumn} = this.state;
+        const {totalCount, data:movies} = this.getPageData();
+        if(count === 0)
+        return <p>There are no movies in database</p>;
+       
         return (
 
              <div className='row'>
@@ -59,9 +71,9 @@ class Movies extends React.Component {
       </div>
       <div className='col-sm-9'>
       
-        <p>There are {count} movies in database</p>
+        <p>There are {totalCount} movies in database</p>
        <MoviesTable movies={movies} onDelete={this.handleDelte} onLike={this.handleLIke} onSort={this.handleSort} sortColoumn={sortColoumn}/>
-        <Pagination itemCount={filterd.length } pageSize={pageSize} currentPage={currentPage} onPageChange={this.handlePageChange} />
+        <Pagination itemCount={totalCount } pageSize={pageSize} currentPage={currentPage} onPageChange={this.handlePageChange} />
         </div>
         </div>
         )

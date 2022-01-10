@@ -10,6 +10,7 @@ import NotFound from './components/notFound';
 import Rentals from './components/rentals';
 import Navbar from './components/navbar';
 import MovieForm from './components/movieForm';
+import LoginForm from './components/loginForm';
 //import { indexOf } from 'lodash';
 //import Navbar from './components/Navbar';
 
@@ -65,6 +66,7 @@ render(){
      
       {/* <Movies/> */}
      <Switch>
+       <Route path="/loginForm" component={LoginForm}></Route>
        <Route path="/Movies/:id" component={MovieForm}></Route>
      <Route path="/Movies" component={Movies}></Route>
      <Route path="/customers" component={Customers}></Route>

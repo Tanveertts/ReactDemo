@@ -60,6 +60,7 @@ render(){
   return (
     <React.Fragment>
     {/* <Navbar totalCounters={this.state.counter.filter(c => c.value > 0).length}/> */}
+    
     <Navbar/>
     <main className='container'>
       {/* <Counters onDecrement={this.handleDecrement} counter={this.state.counter} onReset={this.handleReset} onDelete={this.handleDelete} onIncrement={this.handleIncrement}/> */}

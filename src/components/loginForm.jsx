@@ -13,10 +13,11 @@ class LoginForm extends React.Component {
         password: joi.string().required().label('Password')
     }
     validate = () =>{
-        const result = joi.validate(this.state.account, this.schema, {abortEarly:false});
-        if(!result.error) return null;
+        const options = {abortEarly:false};
+        const {error} = joi.validate(this.state.account, this.schema, options);
+        if(!error) return null;
         const errors = {};
-        for(let item of result.error.details) errors[item.path[0]] = item.message;
+        for(let item of error.details) errors[item.path[0]] = item.message;
         return errors;
         // const errors = {}
         // if(this.state.account.username.trim() === "")
@@ -35,12 +36,20 @@ class LoginForm extends React.Component {
         console.log('submitted');
     }
     validateProperty = ({name, value}) =>{
-        if(name === 'username'){
-            if(value.trim() === '') return 'Username is required';
-        }
-        if(name === 'password'){
-            if(value.trim() === '') return 'Password is required';
-        }
+        const obj = {[name]:value};
+        const schema = {[name]:this.schema[name]};
+        const {error} =  joi.validate(obj, schema);
+        return error ? error.details[0].message : null;
+        // if(!error) return null;
+        // return error.details[0].message;
+
+
+        // if(name === 'username'){
+        //     if(value.trim() === '') return 'Username is required';
+        // }
+        // if(name === 'password'){
+        //     if(value.trim() === '') return 'Password is required';
+        // }
     }
     handleChange = ({currentTarget:input}) => {
         const errors = {...this.state.errors};
@@ -60,7 +69,7 @@ class LoginForm extends React.Component {
                 <Input onChange={this.handleChange} error={errors.password} value={account.password} name="password" id="password" type="password" label="Password"/>
                 {/* <div className="form-group"><label htmlFor="userName">Username</label><input onChange={this.handleChange} value={account.username} autoFocus name="username" id="userName" type="text" className="form-control" /></div>
                 <div className="form-group"><label htmlFor="password">Password</label><input onChange={this.handleChange} value={account.password} name="password" id="password" type="text" className="form-control" /></div> */}
-                <button className="btn btn-primary">Login</button>
+                <button disabled={this.validate()} className="btn btn-primary">Login</button>
             </form>
         </div> );
     }

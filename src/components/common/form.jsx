@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import joi from "joi-browser";
 import Input from "./input";
+import Select from "./select";
 
 class Form extends Component {
   validate = () => {
@@ -69,6 +70,16 @@ class Form extends Component {
         id="username"
         type={type}
         label={label}
+      />
+    );
+  };
+  renderSelectInput = (name, label, options) => {
+    return (
+      <Select
+        name={name}
+        label={label}
+        onChange={this.handleChange}
+        options={options}
       />
     );
   };

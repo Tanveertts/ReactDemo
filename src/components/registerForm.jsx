@@ -13,7 +13,7 @@ class RegisterForm extends Form {
     name: joi.string().required().label("Name"),
   };
   doSubmit = () => {
-    console.log("submitted");
+    console.log("register form submitted");
   };
   render() {
     return (

@@ -76,8 +76,8 @@ class App extends React.Component {
           <Switch>
             <Route path="/loginForm" component={LoginForm}></Route>
             <Route path="/registerForm" component={RegisterForm}></Route>
-            <Route path="/movies/new" component={AddNewMovie}></Route>
-            <Route path="/Movies/:id" component={MovieForm}></Route>
+            {/* <Route path="/movies/new" component={AddNewMovie}></Route> */}
+            <Route path="/Movies/:id" component={AddNewMovie}></Route>
             <Route path="/Movies" component={Movies}></Route>
             <Route path="/customers" component={Customers}></Route>
             <Route path="/rentals" component={Rentals}></Route>

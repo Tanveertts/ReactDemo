@@ -25,18 +25,24 @@ class Movies extends React.Component {
     this.setState({ movies });
     console.log(moviesItems);
   }
-  handleLIke(moviesItems) {
+  handleLIke(movie) {
     // const movies = {...this.state.movies};
     // const index = movies.indexOf(moviesItems);
     // movies[index] = { ...movies[index] };
     // movies[index].liked = !movies[index].liked;
     // this.setState({movies});
+    // const movies = [...this.state.movies];
+    // const index = movies.indexOf(moviesItems);
+    // movies[index] = { ...movies[index] };
+    // movies[index].liked = !movies[index].liked;
+    // this.setState({ movies });
+    // console.log(moviesItems);
+
     const movies = [...this.state.movies];
-    const index = movies.indexOf(moviesItems);
+    const index = movies.indexOf(movie);
     movies[index] = { ...movies[index] };
     movies[index].liked = !movies[index].liked;
     this.setState({ movies });
-    console.log(moviesItems);
   }
   handlePageChange = (page) => {
     this.setState({ currentPage: page });

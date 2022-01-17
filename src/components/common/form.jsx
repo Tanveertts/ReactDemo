@@ -10,6 +10,7 @@ class Form extends Component {
     if (!error) return null;
     const errors = {};
     for (let item of error.details) errors[item.path[0]] = item.message;
+    console.log(errors);
     return errors;
     // const errors = {}
     // if(this.state.data.username.trim() === "")
@@ -74,11 +75,14 @@ class Form extends Component {
     );
   };
   renderSelectInput = (name, label, options) => {
+    const { data, errors } = this.state;
     return (
       <Select
         name={name}
+        value={data[name]}
         label={label}
         onChange={this.handleChange}
+        error={errors[name]}
         options={options}
       />
     );

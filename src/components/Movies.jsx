@@ -1,5 +1,5 @@
-import React from "react";
-import MoviesTable from "./MoviesTable";
+import React, { Suspense, lazy } from "react";
+//import MoviesTable from "./MoviesTable";
 import { getMovies } from "../services/fakeMovieService";
 import Pagination from "./common/Pagination";
 import { paginate } from "../utils/Paginate";
@@ -7,12 +7,15 @@ import { getGenres } from "../services/fakeGenreService";
 import List from "../components/List";
 import _ from "lodash";
 import { Link } from "react-router-dom";
+import SearchBox from "./common/searchBox";
+const MoviesTable = lazy(() => import("./MoviesTable"));
 class Movies extends React.Component {
   state = {
     movies: [],
     pageSize: 4,
     currentPage: 1,
     genre: [],
+    searchQuery: "",
     sortColoumn: [{ path: "title", order: "asc" }],
     // selectedGenre:[]
   };
@@ -51,6 +54,9 @@ class Movies extends React.Component {
     //const genreIndex = indexOf(genreItem);
     console.log(genreItem);
     this.setState({ selectedGenre: genreItem, currentPage: 1 });
+  };
+  handleSearch = (query) => {
+    this.setState({ searchQuery: query, selectedGenre: null, currentPage: 1 });
   };
   handleSort = (sortColoumn) => {
     this.setState({ sortColoumn });
@@ -96,13 +102,16 @@ class Movies extends React.Component {
             New Movie
           </Link>
           <p>There are {totalCount} movies in database</p>
-          <MoviesTable
-            movies={movies}
-            onDelete={this.handleDelte}
-            onLike={this.handleLIke}
-            onSort={this.handleSort}
-            sortColoumn={sortColoumn}
-          />
+          <SearchBox value="" onChange={this.handleSearch()} />
+          <Suspense fallback={<div>Please wait..</div>}>
+            <MoviesTable
+              movies={movies}
+              onDelete={this.handleDelte}
+              onLike={this.handleLIke}
+              onSort={this.handleSort}
+              sortColoumn={sortColoumn}
+            />
+          </Suspense>
           <Pagination
             itemCount={totalCount}
             pageSize={pageSize}
